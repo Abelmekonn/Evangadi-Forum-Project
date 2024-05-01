@@ -87,7 +87,7 @@ async function getQuestionDetail(req, res) {
     const questionId = req.params.questionId;
 
     try {
-        const query = "SELECT * FROM questions WHERE questionid = ?";
+        const query = "SELECT q.*,u.username FROM questions q INNER JOIN users u ON q.userid=u.userid WHERE questionid = ?";
         const result = await dbConnectionPromise.query(query, [questionId]);
 
         if (result.length > 0) {

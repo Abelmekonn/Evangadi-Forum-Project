@@ -38,7 +38,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
-        <Route path='/question-detail:questionId' element={<Detail />} />
+        <Route path='/question-detail/:questionId' element={<Detail />} />
         <Route path='/create-question' element={<CreateQuestion />} />
       </Routes>
     </Appstate.Provider>

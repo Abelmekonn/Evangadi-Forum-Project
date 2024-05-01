@@ -37,7 +37,7 @@ function All_question() {
             <h2>All Questions</h2>
             {questions.map(question => (
                 <div key={question.id}>
-                    <Link to={`/questions/${question.questionid}`}>
+                    <Link to={`/question-detail/${question.questionid}`}>
                         <h3>{question.title}</h3>
                     </Link>
                     <p>Tag: {question.tag}</p>
