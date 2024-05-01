@@ -8,8 +8,8 @@ function authMiddleware(req, res, next) {
     }
     const token = authHeader.split(" ")[1]; 
     try {
-        const { username, userid } = jwt.verify(token,process.env.JWT_SECRET);
-        req.user = { username, userid };
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded; // Assuming your JWT contains all necessary user information
         next();
     } catch (error) {
         console.error("JWT verification error:", error); // Log the JWT verification error

@@ -1,34 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState,createContext } from 'react'
+import Home from './pages/Home/Home'
+import Login from './pages/Login/Login'
+import Register from './pages/Register/Register'
+import { Route, Routes } from 'react-router-dom'
+import axios from './utils/axios'
+import { useNavigate } from 'react-router-dom'
+import CreateQuestion from './pages/Question/CreateQuestion'
+import Detail from './pages/Question/Detail'
+export const Appstate=createContext()
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [user,setUser]=useState({})
+  const token=localStorage.getItem('token')
+  const navigate=useNavigate();
+  async function checkUser(){
+    try {
+      const {data} = await axios.get("/users/check",{
+        headers:{
+          Authorization:"Bearer "+token
+        }
+      })
+      setUser(data)
+      console.log(data)
+    } catch (error) {
+      console.log(error.response);
+      navigate("/login");
+    }
+  }
+
+  useEffect(()=>{
+    checkUser()
+  },[])
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Appstate.Provider value={{user,setUser}}>
+      <Routes>
+        <Route path='/login' element={<Login />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path='/question-detail:questionId' element={<Detail />} />
+        <Route path='/create-question' element={<CreateQuestion />} />
+      </Routes>
+    </Appstate.Provider>
   )
 }
 
