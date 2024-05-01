@@ -6,7 +6,7 @@ const { createQuestion, allQuestions, deleteQuestion, updateQuestion,getQuestion
 
 
 // use get for getting question detail
-router.get('/:questionId', authMiddleware ,getQuestionDetail);
+router.get('/detail/:questionId', authMiddleware ,getQuestionDetail);
 
 // Use POST for creating a new question
 router.post("/create-question", authMiddleware, createQuestion);

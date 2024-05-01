@@ -5,7 +5,6 @@ const {login,register,checker}=require("../controller/userController")
 // authorization middleware
 const authMiddleware=require('../middleware/authMiddleware')
 
-
 // Register poster
 router.post("/register", register);
 
