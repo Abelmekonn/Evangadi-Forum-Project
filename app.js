@@ -13,6 +13,9 @@ const userRouter = require('./routes/userRoute');
 // question  route file
 const questionRoute=require("./routes/questionRoute")
 
+// answer route file
+const answerRoute=require("./routes/answerRoute")
+
 app.use(express.json())
 app.use(cors())
 
@@ -21,6 +24,9 @@ app.use("/api/users", userRouter);
 
 // question middleware
 app.use('/api/questions', questionRoute)
+
+//  Answer MiddleWare
+app.use('/api/answer', answerRoute)
 
 async function first() {
     try {
