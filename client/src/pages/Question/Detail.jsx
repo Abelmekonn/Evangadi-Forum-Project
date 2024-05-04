@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from '../../utils/axios';
 import { useParams } from 'react-router-dom'; // Import useParams
 import CreateAnswer from '../Answer/CreateAnswer';
+import Answer from '../Answer/Answer';
 
 function DetailQuestion() {
     const { questionId } = useParams(); // Get the questionId from useParams
@@ -45,6 +46,7 @@ function DetailQuestion() {
                     ))}
                 </div>
             )}
+            <Answer questionId={questionId} />
             <CreateAnswer questionId={questionId} />
         </div>
     );

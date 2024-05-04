@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "../../utils/axios";
-import { use } from "../../../../routes/answerRoute";
+
 
 
 function Answer({questionId}) {
-    const [answer,setAnswer]=useState([]);
+    const [answers,setAnswer]=useState([]);
     const [error,setError]=useState();
     useEffect(()=>{
         const token = localStorage.getItem('token');
@@ -21,13 +21,18 @@ function Answer({questionId}) {
                 }
             })
         }
-    })
+    }, [questionId]); // Adding questionId as a dependency to useEffect
 
     return (
         <div>
-        
+            {answers?.map(answer => (
+                <div key={answer.answerid}>
+                    <p>{answer.username}</p>
+                    <p>{answer.answer}</p>
+                </div>
+            ))}
         </div>
     )
 }
 
-export default Answer
+export default Answer;

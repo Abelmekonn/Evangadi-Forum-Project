@@ -2,6 +2,7 @@ import { useRef } from "react";
 import axios from "../../utils/axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import {} from "./Login.module.css"
 
 function Login() {
     const navigate = useNavigate();
@@ -42,7 +43,7 @@ function Login() {
     }
 
     return (
-        <div>
+        <div >
             <h1>Login</h1>
             <form onSubmit={handleSubmit}>
                 <div>
