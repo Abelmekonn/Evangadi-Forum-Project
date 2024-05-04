@@ -7,6 +7,7 @@ import axios from './utils/axios'
 import { useNavigate } from 'react-router-dom'
 import CreateQuestion from './pages/Question/CreateQuestion'
 import Detail from './pages/Question/Detail'
+import Auth from './pages/Auth/Auth'
 export const Appstate=createContext()
 
 function App() {
@@ -35,9 +36,8 @@ function App() {
   return (
     <Appstate.Provider value={{user,setUser}}>
       <Routes>
-        <Route path='/login' element={<Login />} />
+        <Route path='/login' element={<Auth />} />
         <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
         <Route path='/question-detail/:questionId' element={<Detail />} />
         <Route path='/create-question' element={<CreateQuestion />} />
       </Routes>

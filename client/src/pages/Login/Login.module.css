@@ -2,6 +2,7 @@
     padding: 30px;
     align-items: center;
     text-align: center;
+    height: max-content;
 }
 
 .input {
@@ -40,9 +41,8 @@
 
 .input_alt {
     font-size: 1.2rem;
-    padding-inline: 1em;
-    padding-block: 0.8em;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding-inline: 0.6em;
+    padding-block: 0.4em;
 }
 
 .inputBorderAlt {
@@ -73,7 +73,7 @@ p{
     font-size: 16px;
     font-weight: 400;
     color: #67748E;
-    margin: 10px 0;
+    margin: 20px 0;
 }
 p span{
     margin: 10px 0;

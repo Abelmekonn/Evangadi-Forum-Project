@@ -1,0 +1,25 @@
+.home_container{
+    width: 65%;
+    margin: auto;
+}
+.home_upper{
+    margin-top: 3%;
+    margin-bottom: 2%;
+    display:flex;
+    justify-content: space-between;
+}
+.home_upper p{
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+}
+.btn{
+    font-size: 14px;
+    height: 40px;
+    align-self: center;
+    padding:0 10px;
+    color: #ffff;
+    border: none;
+    background-color: rgb(100, 100, 218) !important;
+    border-radius: 5px;
+}

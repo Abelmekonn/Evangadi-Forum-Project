@@ -1,22 +1,23 @@
 import { useContext } from 'react';
 import { Appstate } from '../../App';
 import { Link, useNavigate } from 'react-router-dom';
+import LayOut from '../../Components/LayOut/LayOut';
 import All_question from '../Question/All_question';
+import classes from "./home.module.css"
+
 function Home() {
     const user = useContext(Appstate);
-
-
-
-
     return (
-        <div>
-            <h1>Home</h1>
-            <br />
-            <br />
-            <br />
-            <h2>{user.user.username}</h2>
-            <All_question />
-        </div>
+        <LayOut>
+            <div className={classes.home_container}>
+                <div className={classes.home_upper}>
+                    <button className={classes.btn}>Ask question</button>
+                    <p>Welcome : {user.user.username}</p>
+                </div>
+                <All_question />
+            </div>
+        </LayOut>
+
     );
 }
 

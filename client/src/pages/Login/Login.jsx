@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import classes from "./Login.module.css"
 import LayOut from "../../Components/LayOut/LayOut";
-function Login() {
+function Login({ toggleForm }) {
     const navigate = useNavigate();
 
     const email = useRef();
@@ -43,37 +43,40 @@ function Login() {
     }
 
     return (
-        <LayOut>
-            <div className={classes.login_container}>
-                <p><span>Login to your account</span></p>
-                <p>Do not have an account? <Link className={classes.red} to={"/register"}>Create a new account?</Link></p>
-                <form onSubmit={handleSubmit}>
-                    <div className={classes.form_control}>
-                        <input
-                            className={`${classes.input_alt} ${classes.input}`}
-                            type="email"
-                            ref={email}
-                            id="email"
-                            placeholder="Email"
-                        />
-                        <span className={`${classes.inputBorder} ${classes.inputBorderAlt}`}></span>
-                    </div>
-                    <br />
-                    <div className={classes.form_control}>
-                        <input
-                            className={`${classes.input_alt} ${classes.input}`}
-                            type="password"
-                            ref={password}
-                            id="password"
-                            placeholder="Password"
-                        />
-                        <span className={`${classes.inputBorder} ${classes.inputBorderAlt}`}></span>
-                    </div>
-                    <br />
-                    <button className={classes.btn} type="submit">Login</button>
-                </form>
-            </div>
-        </LayOut>
+        <div className={classes.login_container}>
+            <p><span>Login to your account</span></p>
+            <p>
+                Do not have an account?{" "}
+                <span className={classes.red} onClick={toggleForm}>
+                    Create a new account?
+                </span>
+            </p>
+            <form onSubmit={handleSubmit}>
+                <div className={classes.form_control}>
+                    <input
+                        className={`${classes.input_alt} ${classes.input}`}
+                        type="email"
+                        ref={email}
+                        id="email"
+                        placeholder="Email"
+                    />
+                    <span className={`${classes.inputBorder} ${classes.inputBorderAlt}`}></span>
+                </div>
+                <br />
+                <div className={classes.form_control}>
+                    <input
+                        className={`${classes.input_alt} ${classes.input}`}
+                        type="password"
+                        ref={password}
+                        id="password"
+                        placeholder="Password"
+                    />
+                    <span className={`${classes.inputBorder} ${classes.inputBorderAlt}`}></span>
+                </div>
+                <br />
+                <button className={classes.btn} type="submit">Login</button>
+            </form>
+        </div>
     );
 }
 

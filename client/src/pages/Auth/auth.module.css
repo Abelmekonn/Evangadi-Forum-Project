@@ -1,0 +1,49 @@
+.container {
+    background-color: #F8F8F8;
+    background-image: url(https://www.evangadi.com/themes/humans/assets/images/misc/bg-svg-f.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.auth_container{
+    padding-top: 7%;
+    padding-bottom: 5%;
+    display: flex;
+    width: 92%;
+    margin: auto;
+}
+.auth_form {
+    background-color: #FFFFFF;
+    border-radius: 7px;
+    height: auto;
+    width: 50%;
+    flex: 100%;
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0px 0px 45px 0px rgba(19, 19, 19, 0.18);
+}
+.auth_page_container{
+    width: 40%;
+    flex: 100%;
+    
+}
+.auth_page{
+    padding-top: 10%;
+    margin: auto;
+    width: 90%;
+}
+.btn_btn{
+    background-color: #FE8402;
+    border: none;
+    color: #FFFFFF;
+    font-size: 17px;
+    padding: 10px 25px;
+}
+span{
+    color: #FE8A2A;
+}
+h1 {
+    font-size: 45px;
+    background: linear-gradient(90deg, rgba(210,78,42,0.9528186274509804) 34%, rgba(189,59,26,1) 44%, rgba(113,56,23,1) 89%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

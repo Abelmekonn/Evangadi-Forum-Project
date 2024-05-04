@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import axios from "../../utils/axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import img  from "../../assets/img/profile_icon.webp"
+import classes from "./all.module.css"
 
 function All_question() {
     const navigate = useNavigate();
@@ -34,14 +36,16 @@ function All_question() {
     return (
         <>
             {error && <div>Error: {error}</div>}
-            <h2>All Questions</h2>
+            <h3> Questions</h3>
+            <hr />
             {questions.map(question => (
-                <div key={question.id}>
-                    <Link to={`/question-detail/${question.questionid}`}>
-                        <h3>{question.title}</h3>
-                    </Link>
+                <div key={question.id} className={classes.question}>
+                    <div className={classes.profile}>
+                        <img src={img} alt="" />
+                        <p>{question.username}</p>
+                    </div>
+                    <h3>{question.title}</h3>
                     <p>Tag: {question.tag}</p>
-                    <p>{question.username}</p>
                 </div>
             ))}
         </>
