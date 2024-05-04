@@ -6,6 +6,6 @@ const {createAnswer,GetAnswersByQuestionId}  = require("../controller/answer")
 
 router.post("/create", authMiddleware, createAnswer);
 
-router.get('/all/:question_id',authMiddleware ,GetAnswersByQuestionId)
+router.get('/all/:questionId',authMiddleware ,GetAnswersByQuestionId)
 
 module.exports=router;
