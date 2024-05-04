@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 import axios from "../../utils/axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import LayOut from "../../Components/LayOut/LayOut";
+import classes from "./Register.module.css"
 
 function Register() {
     const navigate = useNavigate();
@@ -49,63 +51,75 @@ function Register() {
     }
 
     return (
-        <section>
-            <h1>Register</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="username">Username:</label>
-                    <input
-                        type="text"
-                        ref={username}
-                        id="username"
-                        placeholder="Username"
-                    />
-                </div>
-                <br />
-                <div>
-                    <label htmlFor="firstName">First Name:</label>
-                    <input
-                        type="text"
-                        ref={firstName}
-                        id="firstName"
-                        placeholder="First Name"
-                    />
-                </div>
-                <br />
-                <div>
-                    <label htmlFor="lastName">Last Name:</label>
-                    <input
-                        type="text"
-                        ref={lastName}
-                        id="lastName"
-                        placeholder="Last Name"
-                    />
-                </div>
-                <br />
-                <div>
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        ref={email}
-                        id="email"
-                        placeholder="Email"
-                    />
-                </div>
-                <br />
-                <div>
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        ref={password}
-                        id="password"
-                        placeholder="Password"
-                    />
-                </div>
-                <br />
-                <button type="submit">Register</button>
-                {errorMessage && <p className="error-message">{errorMessage}</p>}
-            </form>
-        </section>
+        <LayOut>
+            <div className={classes.register_container}>
+                <p><span>Join the network</span></p>
+                <p>Already have an account ? <Link className={classes.red} to={"/register"}>Signin</Link></p>
+                <form onSubmit={handleSubmit}>
+                    <div className={classes.form_control}>
+                        <input
+                            className={`${classes.input_alt} ${classes.input}`}
+                            type="text"
+                            ref={username}
+                            id="username"
+                            placeholder="Username"
+                        />
+                        <span className={`${classes.inputBorder} ${classes.inputBorderAlt}`}></span>
+                    </div>
+                    <br />
+                    <div className={classes.name}>
+                        <div className={classes.form_control}>
+                            <input
+                                className={`${classes.input_alt} ${classes.input}`}
+                                type="text"
+                                ref={firstName}
+                                id="firstName"
+                                placeholder="First Name"
+                            />
+                            <span className={`${classes.inputBorder} ${classes.inputBorderAlt}`}></span>
+                        </div>
+                        <div className={classes.form_control}>
+                            <input
+                                className={`${classes.input_alt} ${classes.input}`}
+                                type="text"
+                                ref={lastName}
+                                id="lastName"
+                                placeholder="Last Name"
+                            />
+                            <span className={`${classes.inputBorder} ${classes.inputBorderAlt}`}></span>
+                        </div>
+                    </div>
+                    <br />
+                    <div className={classes.form_control}>
+                        <input
+                            className={`${classes.input_alt} ${classes.input}`}
+                            type="email"
+                            ref={email}
+                            id="email"
+                            placeholder="Email"
+                        />
+                        <span className={`${classes.inputBorder} ${classes.inputBorderAlt}`}></span>
+                    </div>
+                    <br />
+                    <div className={classes.form_control}>
+                        <input
+                            className={`${classes.input_alt} ${classes.input}`}
+                            type="password"
+                            ref={password}
+                            id="password"
+                            placeholder="Password"
+                        />
+                        <span className={`${classes.inputBorder} ${classes.inputBorderAlt}`}></span>
+                    </div>
+                    <br />
+                    <p>I agree to the <span className={classes.red}>privacy policy</span>  and <span className={classes.red}>terms of service</span>.</p>
+                    <br />
+                    <button className={classes.btn} type="submit">Register</button>
+                    {errorMessage && <p className="error-message">{errorMessage}</p>}
+                </form>
+            </div>
+        </LayOut>
+
     );
 }
 

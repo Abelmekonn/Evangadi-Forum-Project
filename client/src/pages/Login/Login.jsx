@@ -45,32 +45,33 @@ function Login() {
     return (
         <LayOut>
             <div className={classes.login_container}>
-                <h1>Login to your account</h1>
-                <p>Don't have an account? <Link>create</Link></p>
+                <p><span>Login to your account</span></p>
+                <p>Do not have an account? <Link className={classes.red} to={"/register"}>Create a new account?</Link></p>
                 <form onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="email">Email:</label>
+                    <div className={classes.form_control}>
                         <input
+                            className={`${classes.input_alt} ${classes.input}`}
                             type="email"
                             ref={email}
                             id="email"
                             placeholder="Email"
                         />
+                        <span className={`${classes.inputBorder} ${classes.inputBorderAlt}`}></span>
                     </div>
                     <br />
-                    <div>
-                        <label htmlFor="password">Password:</label>
+                    <div className={classes.form_control}>
                         <input
+                            className={`${classes.input_alt} ${classes.input}`}
                             type="password"
                             ref={password}
                             id="password"
                             placeholder="Password"
                         />
+                        <span className={`${classes.inputBorder} ${classes.inputBorderAlt}`}></span>
                     </div>
                     <br />
-                    <button type="submit">Login</button>
+                    <button className={classes.btn} type="submit">Login</button>
                 </form>
-                <Link to={"/register"} >register</Link>
             </div>
         </LayOut>
     );
