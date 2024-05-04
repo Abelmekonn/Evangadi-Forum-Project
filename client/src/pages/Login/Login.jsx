@@ -2,8 +2,8 @@ import { useRef } from "react";
 import axios from "../../utils/axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import {} from "./Login.module.css"
-
+import classes from "./Login.module.css"
+import LayOut from "../../Components/LayOut/LayOut";
 function Login() {
     const navigate = useNavigate();
 
@@ -14,12 +14,12 @@ function Login() {
         e.preventDefault();
         const emailValue = email.current.value;
         const passwordValue = password.current.value;
-        
+
         if (!emailValue || !passwordValue) {
             alert("Please provide both email and password");
             return;
         }
-        
+
         try {
             // Make a login request using Axios
             const response = await axios.post("/users/login", {
@@ -43,33 +43,35 @@ function Login() {
     }
 
     return (
-        <div >
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        ref={email}
-                        id="email"
-                        placeholder="Email"
-                    />
-                </div>
-                <br />
-                <div>
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        ref={password}
-                        id="password"
-                        placeholder="Password"
-                    />
-                </div>
-                <br />
-                <button type="submit">Login</button>
-            </form>
-            <Link to={"/register"} >register</Link>
-        </div>
+        <LayOut>
+            <div className={classes.login_container}>
+                <h1>Login</h1>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <label htmlFor="email">Email:</label>
+                        <input
+                            type="email"
+                            ref={email}
+                            id="email"
+                            placeholder="Email"
+                        />
+                    </div>
+                    <br />
+                    <div>
+                        <label htmlFor="password">Password:</label>
+                        <input
+                            type="password"
+                            ref={password}
+                            id="password"
+                            placeholder="Password"
+                        />
+                    </div>
+                    <br />
+                    <button type="submit">Login</button>
+                </form>
+                <Link to={"/register"} >register</Link>
+            </div>
+        </LayOut>
     );
 }
 
