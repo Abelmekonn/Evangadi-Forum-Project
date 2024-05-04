@@ -35,11 +35,11 @@ function CreateQuestion() {
             return setErrorMessage("All fields are required");
         }
 
-        const questionid = generateQuestionId(8); // Generate a random 8-character questionid
+        const questionid = generateQuestionId(8); 
 
         try {
             await axios.post("/questions/create-question", {
-                questionid: questionid, // Include the generated questionid in the request
+                questionid: questionid, 
                 userid: userId,
                 title: titleValue,
                 description: descValue,

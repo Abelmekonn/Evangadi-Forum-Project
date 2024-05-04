@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../utils/axios';
 import { useParams } from 'react-router-dom'; // Import useParams
+import CreateAnswer from '../Answer/CreateAnswer';
 
 function DetailQuestion() {
     const { questionId } = useParams(); // Get the questionId from useParams
@@ -44,6 +45,7 @@ function DetailQuestion() {
                     ))}
                 </div>
             )}
+            <CreateAnswer questionId={questionId} />
         </div>
     );
 }
