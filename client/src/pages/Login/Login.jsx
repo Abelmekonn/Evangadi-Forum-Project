@@ -45,7 +45,8 @@ function Login() {
     return (
         <LayOut>
             <div className={classes.login_container}>
-                <h1>Login</h1>
+                <h1>Login to your account</h1>
+                <p>Don't have an account? <Link>create</Link></p>
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="email">Email:</label>
