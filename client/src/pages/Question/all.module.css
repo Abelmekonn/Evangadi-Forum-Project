@@ -1,6 +1,29 @@
+.question_container{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 5px;
+    border-bottom: 1px solid #504f4f;
+    height: fit-content;
+    align-self: center;
+}
 .question{
     display: flex;
+    gap: 25px;
+    align-self: center;
+    align-items: center;
+}
+.profile{
+    align-self: center;
+    align-items: center;
 }
 .profile img{
     width: 80px;
+    border-radius: 50%;
+}
+.question .link {
+    display: flex;
+    align-items: center;
+}
+.link svg {
+    margin-top: 50px; /* Push the icon to the far right */
 }

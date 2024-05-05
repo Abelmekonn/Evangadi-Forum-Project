@@ -14,12 +14,17 @@
     color: #000;
 }
 .btn{
-    font-size: 14px;
+    
     height: 40px;
     align-self: center;
     padding:0 10px;
-    color: #ffff;
+    
     border: none;
     background-color: rgb(100, 100, 218) !important;
     border-radius: 5px;
+}
+.btn .link{
+    font-size: 14px;
+    color: #ffff;
+    text-decoration: none;
 }

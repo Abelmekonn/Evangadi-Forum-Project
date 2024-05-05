@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import axios from "../../utils/axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import img  from "../../assets/img/profile_icon.webp"
+import img from "../../assets/img/profile_icon.webp"
 import classes from "./all.module.css"
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 function All_question() {
     const navigate = useNavigate();
@@ -39,13 +40,18 @@ function All_question() {
             <h3> Questions</h3>
             <hr />
             {questions.map(question => (
-                <div key={question.id} className={classes.question}>
-                    <div className={classes.profile}>
-                        <img src={img} alt="" />
-                        <p>{question.username}</p>
+                <div key={question.id} className={classes.question_container}>
+                    <div className={classes.question}>
+                        <div className={classes.profile}>
+                            <img src={img} alt="" />
+                            <p>{question.username}</p>
+                        </div>
+                        <p>{question.title}</p>
+                        <p>Tag: {question.tag}</p>
                     </div>
-                    <h3>{question.title}</h3>
-                    <p>Tag: {question.tag}</p>
+                    <Link className={classes.link} to={`/question-detail/${question.questionid}`}>
+                        <ChevronRightIcon />
+                    </Link>
                 </div>
             ))}
         </>

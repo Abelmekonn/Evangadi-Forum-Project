@@ -1,0 +1,64 @@
+.create_container {
+    width: 80%;
+    margin: auto;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding-top: 3%;
+}
+
+.create_container ul li p {
+    margin: 0 !important;
+    font-size: 15px;
+}
+
+.create_container h4 {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.create_container form {
+    width: 70%;
+    margin: 20px auto;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    border-radius: 7px;
+    box-shadow: 7px 9px 21px 10px rgba(158, 184, 173, 0.5);
+    -webkit-box-shadow: 7px 9px 21px 10px rgba(158, 184, 173, 0.5);
+    -moz-box-shadow: 7px 9px 21px 10px rgba(158, 184, 173, 0.5);
+}
+
+form div {
+    width: 100%;
+}
+form .link{
+    text-decoration: none;
+    color: rgb(90, 87, 87);
+}
+
+form div .input {
+    font-size: 0.9rem;
+    width: 100%;
+    margin: 5px auto;
+    background-color: #ffff;
+    box-sizing: border-box;
+    padding-inline: 0.5em;
+    padding-block: 0.7em;
+    border: 1px solid #ebe4e4;
+    border-radius: 4px;
+}
+.submit_btn{
+    color: white;
+    border: none;
+    background-color: rgb(100, 100, 218) !important;
+    border-radius: 3px;
+    height: fit-content;
+    display: flex;
+    cursor: pointer;
+}
+.submit_btn span{
+    padding:5px  15px;
+    color: #FFFFFF;
+}

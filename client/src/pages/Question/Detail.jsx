@@ -3,6 +3,8 @@ import axios from '../../utils/axios';
 import { useParams } from 'react-router-dom'; // Import useParams
 import CreateAnswer from '../Answer/CreateAnswer';
 import Answer from '../Answer/Answer';
+import LayOut from '../../Components/LayOut/LayOut';
+import classes from './detail.module.css'
 
 function DetailQuestion() {
     const { questionId } = useParams(); // Get the questionId from useParams
@@ -16,39 +18,42 @@ function DetailQuestion() {
                 Authorization: `Bearer ${token}`
             }
         })
-        .then((res) => {
-            if (Array.isArray(res.data)) {
-                setQuestionDetail(res.data);
-                console.log(res.data); // Log the received data
-            } else {
-                setError("Invalid response: Expected an array");
-            }
-        })
-        .catch((error) => {
-            setError("Failed to fetch question detail");
-            console.error("Error fetching question detail:", error);
-        });
+            .then((res) => {
+                if (Array.isArray(res.data)) {
+                    setQuestionDetail(res.data);
+                    console.log(res.data); // Log the received data
+                } else {
+                    setError("Invalid response: Expected an array");
+                }
+            })
+            .catch((error) => {
+                setError("Failed to fetch question detail");
+                console.error("Error fetching question detail:", error);
+            });
     }, [questionId]);
 
     return (
-        <div>
-            {error ? (
-                <p>{error}</p>
-            ) : (
-                <div>
-                    {questionDetail.map((question) => (
-                        <div key={question.questionid}>
-                            <h2>{question.title}</h2>
-                            <p>{question.description}</p>
-                            <b>Asked by: {question.username}</b><br />
-                            {/* Add more details as needed */}
-                        </div>
-                    ))}
-                </div>
-            )}
-            <Answer questionId={questionId} />
-            <CreateAnswer questionId={questionId} />
-        </div>
+        <LayOut>
+            <div className={classes.detail_container}>
+                <h3> Question</h3>
+                {error ? (
+                    <p>{error}</p>
+                ) : (
+                    <div >
+                        {questionDetail.map((question) => (
+                            <div className={classes.detail} key={question.questionid}>
+                                <h4>{question.title}</h4>
+                                <p>{question.description}</p>
+                                {/* <b>Asked by: {question.username}</b><br /> */}
+                                {/* Add more details as needed */}
+                            </div>
+                        ))}
+                    </div>
+                )}
+                <Answer questionId={questionId} />
+                <CreateAnswer questionId={questionId} />
+            </div>
+        </LayOut>
     );
 }
 

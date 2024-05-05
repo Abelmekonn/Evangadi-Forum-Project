@@ -11,7 +11,7 @@ function Home() {
         <LayOut>
             <div className={classes.home_container}>
                 <div className={classes.home_upper}>
-                    <button className={classes.btn}>Ask question</button>
+                    <button className={classes.btn}><Link className={classes.link} to={'/create-question'}>Ask question</Link></button>
                     <p>Welcome : {user.user.username}</p>
                 </div>
                 <All_question />

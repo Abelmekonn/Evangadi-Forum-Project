@@ -1,0 +1,17 @@
+.answer_container h3{
+    margin: 10px auto;
+}
+.answer{
+    margin-top: 30px;
+    display: flex;
+    gap: 40px;
+}
+.profile img{
+    width: 70px;
+    margin: 0;
+    border-radius: 50%;
+}
+.profile p{
+    margin: 0 8px;
+    text-align: center;
+}

@@ -3,6 +3,8 @@ import axios from "../../utils/axios";
 import { useNavigate } from "react-router-dom";
 import { useContext } from 'react';
 import { Appstate } from '../../App';
+import { Link } from "react-router-dom";
+import classes from './create.module.css'
 
 function CreateAnswer({ questionId }) {
     const [errorMessage, setErrorMessage] = useState("");
@@ -36,10 +38,11 @@ function CreateAnswer({ questionId }) {
     }
 
     return (
-        <div>
+        <div className={classes.create_answer}>
+            <h4>Answer the top questions</h4>
+            <Link className={classes.link}>Go to question part</Link>
             <form action="" method="post" onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="">Answer:</label>
                     <input type="text" ref={answerRef} />
                 </div>
                 <button type="submit">Submit</button>
