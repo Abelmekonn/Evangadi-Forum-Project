@@ -9,24 +9,24 @@ import classes from './create.module.css'
 function CreateAnswer({ questionId }) {
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
-    const navigate=useNavigate()
-    const answerRef=useRef()
+    const navigate = useNavigate()
+    const answerRef = useRef()
     const user = useContext(Appstate);
     const userId = user.user.userid;
-    const token = localStorage.getItem('token'); 
+    const token = localStorage.getItem('token');
 
 
-    async function handleSubmit(e){
+    async function handleSubmit(e) {
         e.preventDefault();
-        const answers=answerRef.current.value;
-        if (!answers){
+        const answers = answerRef.current.value;
+        if (!answers) {
             return setErrorMessage("Answer filed error");
         }
         try {
-            await axios.post(`/answer/create`,{
-                answer:answers,
-                userid:userId,
-                questionid:questionId
+            await axios.post(`/answer/create`, {
+                answer: answers,
+                userid: userId,
+                questionid: questionId
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -42,10 +42,10 @@ function CreateAnswer({ questionId }) {
             <h4>Answer the top questions</h4>
             <Link className={classes.link}>Go to question part</Link>
             <form action="" method="post" onSubmit={handleSubmit}>
+                <input type="text" ref={answerRef} />
                 <div>
-                    <input type="text" ref={answerRef} />
+                    <button type="submit">Submit</button>
                 </div>
-                <button type="submit">Submit</button>
             </form>
         </div>
     )
