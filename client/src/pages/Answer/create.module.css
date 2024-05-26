@@ -14,7 +14,32 @@
     color: rgb(90, 87, 87);
 }
 .create_answer form{
+    align-items: center;
+    padding: 30px 20px;
+    margin-top: 2%;
     width: 80%;
     display: flex;
     flex-direction: column;
+    border-radius: 7px;
+    box-shadow: 7px 9px 21px 10px rgba(158, 184, 173, 0.5);
+    -webkit-box-shadow: 7px 9px 21px 10px rgba(158, 184, 173, 0.5);
+    -moz-box-shadow: 7px 9px 21px 10px rgba(158, 184, 173, 0.5);
+}
+form textarea{
+    height: 100px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+}
+.submit_btn{
+    color: white;
+    border: none;
+    background-color: rgb(100, 100, 218) !important;
+    border-radius: 3px;
+    height: fit-content;
+    display: flex;
+    cursor: pointer;
+    padding: 10px;
 }

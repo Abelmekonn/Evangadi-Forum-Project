@@ -3,7 +3,6 @@ import axios from "../../utils/axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import classes from "./Login.module.css"
-import LayOut from "../../Components/LayOut/LayOut";
 function Login({ toggleForm }) {
     const navigate = useNavigate();
 
@@ -14,25 +13,33 @@ function Login({ toggleForm }) {
         e.preventDefault();
         const emailValue = email.current.value;
         const passwordValue = password.current.value;
-
+    
+        // Regular expression for password validation
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    
         if (!emailValue || !passwordValue) {
             alert("Please provide both email and password");
             return;
         }
-
+    
+        if (!passwordRegex.test(passwordValue)) {
+            alert("Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one symbol.");
+            return;
+        }
+    
         try {
             // Make a login request using Axios
             const response = await axios.post("/users/login", {
                 email: emailValue,
                 password: passwordValue
             });
-
+    
             // Assume the server returns a token upon successful login
             const token = response.data.token;
-
+    
             // Save the token to local storage or session storage
             localStorage.setItem("token", token);
-
+    
             // Redirect to a protected route or dashboard
             navigate('/');
         } catch (error) {
@@ -41,6 +48,7 @@ function Login({ toggleForm }) {
             console.error("Login error:", error);
         }
     }
+    
 
     return (
         <div className={classes.login_container}>

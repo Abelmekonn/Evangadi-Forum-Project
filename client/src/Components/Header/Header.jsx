@@ -17,7 +17,7 @@ function Header() {
                 <img src={img} alt="" />
             </div>
             <div className={classes.navs}>
-                <Link className={classes.link}>Home</Link>
+                <Link to={"/"} className={classes.link}>Home</Link>
                 <Link className={classes.link}>How it works</Link>
                     {
                         token? (<button className={classes.btn} onClick={handleLogout}><span>Logout</span></button>) : (<button className={classes.btn}><span>Sign in</span></button>)

@@ -7,7 +7,7 @@ const dbConnectionPool = mysql2.createPool({
     host: "localhost",
     connectionLimit: 10
 });
-// console.log(process.env.DB_NAME)
+console.log(process.env.DB_NAME)
 // Create a promise for the pool
 const dbConnectionPromise = dbConnectionPool.promise();
 
