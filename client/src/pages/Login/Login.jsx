@@ -15,17 +15,14 @@ function Login({ toggleForm }) {
         const passwordValue = password.current.value;
     
         // Regular expression for password validation
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     
         if (!emailValue || !passwordValue) {
             alert("Please provide both email and password");
             return;
         }
     
-        if (!passwordRegex.test(passwordValue)) {
-            alert("Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one symbol.");
-            return;
-        }
+        
     
         try {
             // Make a login request using Axios

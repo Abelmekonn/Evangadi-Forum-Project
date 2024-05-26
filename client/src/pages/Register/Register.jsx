@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import axios from "../../utils/axios";
 import { useNavigate, Link } from "react-router-dom";
-import LayOut from "../../Components/LayOut/LayOut";
 import classes from "./Register.module.css"
 
 function Register({ toggleForm }) {
