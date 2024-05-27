@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import axios from "../../utils/axios";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import classes from "./Register.module.css"
 
 function Register({ toggleForm }) {
@@ -14,6 +14,7 @@ function Register({ toggleForm }) {
     const email = useRef();
     const password = useRef();
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
     async function handleSubmit(e) {
         e.preventDefault();
         const usernameValue = username.current.value;
@@ -21,6 +22,7 @@ function Register({ toggleForm }) {
         const lastValue = lastName.current.value;
         const emailValue = email.current.value;
         const passValue = password.current.value;
+
         if (
             !usernameValue ||
             !firstValue ||
@@ -31,6 +33,12 @@ function Register({ toggleForm }) {
             setErrorMessage("Please provide all fields");
             return;
         }
+
+        if (!passwordRegex.test(passValue)) {
+            setErrorMessage("Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character.");
+            return;
+        }
+
         try {
             await axios.post("/users/register", {
                 username: usernameValue,
@@ -115,10 +123,10 @@ function Register({ toggleForm }) {
                     <span className={`${classes.inputBorder} ${classes.inputBorderAlt}`}></span>
                 </div>
                 <br />
-                <p>I agree to the <span className={classes.red}>privacy policy</span>  and <span className={classes.red}>terms of service</span>.</p>
+                <p>I agree to the <span className={classes.red}>privacy policy</span> and <span className={classes.red}>terms of service</span>.</p>
                 <br />
                 <button className={classes.btn} type="submit">Register</button>
-                {errorMessage && <p className="error-message">{errorMessage}</p>}
+                {errorMessage && <p className={classes.error_message}>{errorMessage}</p>}
             </form>
         </div>
     );
