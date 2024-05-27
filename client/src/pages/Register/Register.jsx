@@ -13,7 +13,7 @@ function Register({ toggleForm }) {
     const lastName = useRef();
     const email = useRef();
     const password = useRef();
-
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     async function handleSubmit(e) {
         e.preventDefault();
         const usernameValue = username.current.value;
