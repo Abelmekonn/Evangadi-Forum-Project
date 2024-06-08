@@ -48,7 +48,7 @@ function Register({ toggleForm }) {
                 password: passValue,
             });
             console.log('Registration successful. Navigating to login page.');
-            navigate('/login', { state: { successMessage: "Registration successful! Please log in." } });
+            toggleForm();
         } catch (error) {
             console.error('Error during registration:', error);
             if (error.response && error.response.data && error.response.data.msg) {

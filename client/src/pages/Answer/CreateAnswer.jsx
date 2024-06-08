@@ -27,7 +27,7 @@ function CreateAnswer({ questionId }) {
             return setErrorMessage("Fill Answer filed ");
         }
         try {
-            await axios.post(`/answer/create`, {
+            await axios.post(`/answers/create`, {
                 answer: answers,
                 userid: userId,
                 questionid: questionId

@@ -1,7 +1,5 @@
 import { useEffect, useState,createContext } from 'react'
 import Home from './pages/Home/Home'
-import Login from './pages/Login/Login'
-import Register from './pages/Register/Register'
 import { Route, Routes } from 'react-router-dom'
 import axios from './utils/axios'
 import { useNavigate } from 'react-router-dom'

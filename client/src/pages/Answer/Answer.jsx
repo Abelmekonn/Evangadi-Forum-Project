@@ -10,7 +10,7 @@ function Answer({ questionId }) {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            axios.get(`/answer/all/${questionId}`, {
+            axios.get(`/answers/all/${questionId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
