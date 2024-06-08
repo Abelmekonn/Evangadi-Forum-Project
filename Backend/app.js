@@ -23,7 +23,7 @@ app.use("/api/answers", answerRoute); // Ensure consistency with pluralization
 
 // Default 404 handler for undefined routes
 app.use((req, res, next) => {
-    res.status(404).json({ msg: 'Resource not found.' });
+    res.status(404).json({ msg: 'Resource not found error.' });
 });
 
 // Global error handler
