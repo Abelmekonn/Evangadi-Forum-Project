@@ -22,7 +22,7 @@ function Register({ toggleForm }) {
         const lastValue = lastName.current.value;
         const emailValue = email.current.value;
         const passValue = password.current.value;
-
+    
         if (
             !usernameValue ||
             !firstValue ||
@@ -33,12 +33,12 @@ function Register({ toggleForm }) {
             setErrorMessage("Please provide all fields");
             return;
         }
-
+    
         if (!passwordRegex.test(passValue)) {
             setErrorMessage("Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character.");
             return;
         }
-
+    
         try {
             await axios.post("/users/register", {
                 username: usernameValue,
@@ -47,8 +47,10 @@ function Register({ toggleForm }) {
                 email: emailValue,
                 password: passValue,
             });
+            console.log('Registration successful. Navigating to login page.');
             navigate('/login', { state: { successMessage: "Registration successful! Please log in." } });
         } catch (error) {
+            console.error('Error during registration:', error);
             if (error.response && error.response.data && error.response.data.msg) {
                 setErrorMessage(error.response.data.msg);
             } else {
@@ -56,6 +58,7 @@ function Register({ toggleForm }) {
             }
         }
     }
+    
 
     return (
         <div className={classes.register_container}>

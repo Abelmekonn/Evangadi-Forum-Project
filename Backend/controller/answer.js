@@ -10,7 +10,7 @@ async function createAnswer(req, res) {
     }
 
     try {
-        const query = "INSERT INTO answer (userid, questionid, answer) VALUES (?, ?, ?)";
+        const query = "INSERT INTO answers (userid, questionid, answer) VALUES (?, ?, ?)";
         const result = await dbConnectionPromise.query(query, [userid, questionid, answer]);
         
         if (result) {
@@ -27,7 +27,7 @@ async function createAnswer(req, res) {
 async function GetAnswersByQuestionId(req,res){
     const questionId= req.params.questionId;
     try {
-        const query="SELECT q.*,u.username FROM answer q INNER JOIN users u ON q.userid=u.userid WHERE questionid = ?";
+        const query="SELECT q.*,u.username FROM answers q INNER JOIN users u ON q.userid=u.userid WHERE questionid = ?";
         const result =await dbConnectionPromise.query(query,[questionId])
         if (result.length > 0) {
             return res.status(StatusCodes.OK).json(result[0]);
