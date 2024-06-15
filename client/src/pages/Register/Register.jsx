@@ -128,7 +128,7 @@ function Register({ toggleForm }) {
                 <br />
                 <p>I agree to the <span className={classes.red}>privacy policy</span> and <span className={classes.red}>terms of service</span>.</p>
                 <br />
-                <button className={classes.btn} type="submit">Register</button>
+                <button className={classes.btn} type="submit">Register please</button>
                 {errorMessage && <p className={classes.error_message}>{errorMessage}</p>}
             </form>
         </div>
