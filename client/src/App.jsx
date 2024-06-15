@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import CreateQuestion from './pages/Question/CreateQuestion'
 import Detail from './pages/Question/Detail'
 import Auth from './pages/Auth/Auth'
+import DeleteQuestion from './pages/Question/DeleteQuestion'
+import UpdateQuestion from './pages/Question/UpdateQuestion'
 export const Appstate=createContext()
 
 function App() {
@@ -20,9 +22,7 @@ function App() {
         }
       })
       setUser(data)
-      console.log(data)
     } catch (error) {
-      console.log(error.response);
       navigate("/login");
     }
   }
@@ -37,6 +37,8 @@ function App() {
         <Route path='/login' element={<Auth />} />
         <Route path="/" element={<Home />} />
         <Route path='/question-detail/:questionId' element={<Detail />} />
+        <Route path='/question-delete/:questionId' element={<DeleteQuestion />} />
+        <Route path='/question-update/:questionId' element={<UpdateQuestion />} />
         <Route path='/create-question' element={<CreateQuestion />} />
       </Routes>
     </Appstate.Provider>
