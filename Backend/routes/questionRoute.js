@@ -15,9 +15,9 @@ router.post("/create-question", authMiddleware, createQuestion);
 router.get("/all-questions", authMiddleware, allQuestions);
 
 // Use POST for updating a question
-router.post("/update-question", authMiddleware, updateQuestion);
+router.post("/update-question/:questionId", authMiddleware, updateQuestion);
 
 // Use POST for deleting a question
-router.post("/delete-question", authMiddleware, deleteQuestion);
+router.post("/delete-question/:questionId", authMiddleware, deleteQuestion);
 
 module.exports = router;
