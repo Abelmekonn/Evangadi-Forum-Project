@@ -4,7 +4,10 @@
     text-align: center;
     height: max-content;
 }
-
+.form_container{
+    width: 90%;
+    box-shadow: none;
+}
 .input {
     font-size: 0.9rem;
     width: 100%;

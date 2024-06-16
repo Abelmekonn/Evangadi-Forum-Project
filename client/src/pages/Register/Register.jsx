@@ -1,10 +1,11 @@
 import { useRef, useState } from "react";
 import axios from "../../utils/axios";
-import classes from "./Register.module.css"
+import classes from "./Register.module.css";
+import { ClipLoader } from "react-spinners";
 
 function Register({ toggleForm }) {
     const [errorMessage, setErrorMessage] = useState("");
-
+    const [loading, setLoading] = useState(false);
     const username = useRef();
     const firstName = useRef();
     const lastName = useRef();
@@ -19,24 +20,21 @@ function Register({ toggleForm }) {
         const lastValue = lastName.current.value;
         const emailValue = email.current.value;
         const passValue = password.current.value;
-    
-        if (
-            !usernameValue ||
-            !firstValue ||
-            !lastValue ||
-            !emailValue ||
-            !passValue
-        ) {
+
+        if (!usernameValue || !firstValue || !lastValue || !emailValue || !passValue) {
             setErrorMessage("Please provide all fields");
             return;
         }
-    
+
         if (!passwordRegex.test(passValue)) {
-            setErrorMessage("Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character.");
+            setErrorMessage(
+                "Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character."
+            );
             return;
         }
-    
+
         try {
+            setLoading(true);
             await axios.post("/users/register", {
                 username: usernameValue,
                 firstname: firstValue,
@@ -44,29 +42,35 @@ function Register({ toggleForm }) {
                 email: emailValue,
                 password: passValue,
             });
-            console.log('Registration successful. Navigating to login page.');
+            console.log("Registration successful. Navigating to login page.");
             toggleForm();
         } catch (error) {
-            console.error('Error during registration:', error);
+            console.error("Error during registration:", error);
             if (error.response && error.response.data && error.response.data.msg) {
                 setErrorMessage(error.response.data.msg);
             } else {
                 setErrorMessage("Something went wrong. Please try again later.");
             }
+        } finally {
+            // Simulate a slight delay for visual feedback
+            setTimeout(() => {
+                setLoading(false);
+            }, 1500); // Adjust the delay time as needed (1500ms = 1.5 seconds)
         }
     }
-    
 
     return (
         <div className={classes.register_container}>
-            <p><span>Join the network</span></p>
+            <p>
+                <span>Join the network</span>
+            </p>
             <p>
                 Already have an account ?{" "}
                 <span className={classes.red} onClick={toggleForm}>
                     Signin
                 </span>
             </p>
-            <form onSubmit={handleSubmit}>
+            <form className={classes.form_container} onSubmit={handleSubmit}>
                 <div className={classes.form_control}>
                     <input
                         className={`${classes.input_alt} ${classes.input}`}
@@ -123,9 +127,18 @@ function Register({ toggleForm }) {
                     <span className={`${classes.inputBorder} ${classes.inputBorderAlt}`}></span>
                 </div>
                 <br />
-                <p>I agree to the <span className={classes.red}>privacy policy</span> and <span className={classes.red}>terms of service</span>.</p>
+                <p>
+                    I agree to the <span className={classes.red}>privacy policy</span> and{" "}
+                    <span className={classes.red}>terms of service</span>.
+                </p>
                 <br />
-                <button className={classes.btn} type="submit">Register</button>
+                <button className={classes.btn} type="submit" disabled={loading}>
+                    {loading ? (
+                        <ClipLoader color={"#fff"} loading={true} size={20} />
+                    ) : (
+                        "Register"
+                    )}
+                </button>
                 {errorMessage && <p className={classes.error_message}>{errorMessage}</p>}
             </form>
         </div>

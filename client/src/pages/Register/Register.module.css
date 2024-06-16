@@ -3,6 +3,10 @@
     align-items: center;
     text-align: center;
 }
+.form_container{
+    width: 90%;
+    box-shadow: none;
+}
 .name{
     display: flex;
     width: 100%;
