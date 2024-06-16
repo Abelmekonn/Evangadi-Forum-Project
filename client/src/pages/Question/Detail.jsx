@@ -41,6 +41,9 @@ function DetailQuestion() {
         // Navigate to update page and pass questionDetail as state
         navigate(`/question-update/${questionId}`, { state: { questionDetail } });
     };
+    const handleDeleteClick = () => {
+        navigate(`/question-delete/${questionId}`);
+    };
 
     return (
         <LayOut>
@@ -51,14 +54,15 @@ function DetailQuestion() {
                 ) : (
                     <div>
                         <div className={classes.detail} key={questionDetail.questionid}>
-                            <h4>{questionDetail.title}</h4>
-                            <p>{questionDetail.description}</p>
+                            <h4>Title : {questionDetail.title}</h4>
+                            <p>Description : {questionDetail.description}</p>
+                            <p>Tags : {questionDetail.tag}</p>
                             {/* Additional details */}
                         </div>
                         {questionDetail.username === user.user.username && (
                             <div>
-                                <button className={classes.btn}><Link className={classes.link} to={`/question-delete/${questionId}`}>Delete</Link></button>
-                                <button className={classes.btn} onClick={handleUpdateClick}>Update</button>
+                                <button className={`${classes.btn} ${classes.updateBtn}`} onClick={handleUpdateClick}>Update</button>
+                                <button className={`${classes.btn} ${classes.deleteBtn}`} onClick={handleDeleteClick}>Delete</button>
                             </div>
                         )}
                     </div>

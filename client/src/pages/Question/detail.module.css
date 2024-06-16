@@ -14,3 +14,20 @@
 .detail {
     border-bottom: 1px solid rgb(150, 135, 135);
 }
+.btn{
+    margin-top: 20px;
+    height: 40px;
+    margin-right: 20px;
+    align-self: center;
+    padding:0 10px;
+    color: aliceblue;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+.updateBtn{
+    background-color: rgb(100, 100, 218) !important;
+}
+.deleteBtn{
+    background-color: red;
+}

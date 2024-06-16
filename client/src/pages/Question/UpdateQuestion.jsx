@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../utils/axios';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import LayOut from "../../Components/LayOut/LayOut";
+import classes from "./create.module.css"
 
 const UpdateQuestion = () => {
     const { questionId } = useParams();
@@ -69,40 +71,42 @@ const UpdateQuestion = () => {
     };
 
     return (
-        <div>
-            <h2>Update Question</h2>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Title:</label>
-                    <input
-                        type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Description:</label>
-                    <textarea
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Tag:</label>
-                    <input
-                        type="text"
-                        value={tag}
-                        onChange={(e) => setTag(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit">Update Question</button>
-            </form>
-            {message && <p>{message}</p>}
-        </div>
+        <LayOut>
+            <div className={classes.updateContainer}>
+                {error && <p style={{ color: 'red' }}>{error}</p>}
+                <form onSubmit={handleSubmit}>
+                    <h4>Update Question</h4>
+                    <div>
+                        <label>Title :-</label>
+                        <input className={classes.input}
+                            type="text"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label>Tag :-</label>
+                        <input className={classes.input}
+                            type="text"
+                            value={tag}
+                            onChange={(e) => setTag(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label>Description :-</label>
+                        <textarea className={classes.input}
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <button className={classes.submit_btn} type="submit"><span>Update Question</span></button>
+                </form>
+                {message && <p>{message}</p>}
+            </div>
+        </LayOut>
     );
 };
 

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../utils/axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import LayOut from "../../Components/LayOut/LayOut";
+import classes from "./create.module.css"
 
 const DeleteQuestion = () => {
     const { questionId } = useParams();
@@ -19,20 +21,19 @@ const DeleteQuestion = () => {
         e.preventDefault();
         try {
             const token = localStorage.getItem('token');
-             // Debug statement
             if (!token) {
                 setMessage('Authentication token is missing.');
                 return;
             }
 
-            await axios.post(`/questions/delete-question/${questionId}`, {}, {
+            await axios.delete(`/questions/delete-question/${questionId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
 
-            setMessage("deleted")
-            navigate('/');
+            setMessage('Question successfully deleted');
+            navigate('/'); // Navigate to homepage or another appropriate route after deletion
         } catch (error) {
             console.error('Delete question error:', error);
             if (error.response && error.response.status === 401) {
@@ -43,17 +44,19 @@ const DeleteQuestion = () => {
         }
     };
 
+
     return (
-        <div>
-            <h2>Delete Question</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Are you sure you want to delete this question?</label>
-                </div>
-                <button type="submit">Delete Question</button>
-            </form>
-            {message && <p>{message}</p>}
-        </div>
+        <LayOut>
+            <div className={classes.delete_container}>
+                <form onSubmit={handleSubmit}>
+                    <div className={classes.warning}>
+                        <h3>Are you sure you want to delete this question?</h3>
+                    </div>
+                    <button className={classes.deleteBtn} type="submit">Delete Question</button>
+                </form>
+                {message && <p>{message}</p>}
+            </div>
+        </LayOut>
     );
 };
 
