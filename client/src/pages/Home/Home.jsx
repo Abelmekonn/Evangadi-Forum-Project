@@ -14,7 +14,7 @@ function Home() {
                     <button className={classes.btn}><Link className={classes.link} to={'/create-question'}>Ask question</Link></button>
                     <p>Welcome : {user.user.username}</p>
                 </div>
-                <All_question />
+                <All_question  />
             </div>
         </LayOut>
 

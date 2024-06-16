@@ -1,11 +1,10 @@
 import { useRef } from "react";
 import axios from "../../utils/axios";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import classes from "./Login.module.css"
+import classes from "./Login.module.css";
+
 function Login({ toggleForm }) {
     const navigate = useNavigate();
-
     const email = useRef();
     const password = useRef();
 
@@ -14,15 +13,10 @@ function Login({ toggleForm }) {
         const emailValue = email.current.value;
         const passwordValue = password.current.value;
     
-        // Regular expression for password validation
-        // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    
         if (!emailValue || !passwordValue) {
             alert("Please provide both email and password");
             return;
         }
-    
-        
     
         try {
             // Make a login request using Axios
@@ -45,7 +39,6 @@ function Login({ toggleForm }) {
             console.error("Login error:", error);
         }
     }
-    
 
     return (
         <div className={classes.login_container}>

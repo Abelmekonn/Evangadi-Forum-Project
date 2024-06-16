@@ -25,7 +25,8 @@ async function createQuestion(req, res) {
 
 
 async function updateQuestion(req, res) {
-    const { questionid, title, description, tag } = req.body;
+    const questionid = req.params.questionId;
+    const { title, description, tag } = req.body;
 
     if (!questionid || !title || !description || !tag) {
         return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Please provide all required information" });
@@ -46,27 +47,24 @@ async function updateQuestion(req, res) {
     }
 }
 
-async function deleteQuestion(req, res) {
-    const { questionid } = req.body;
 
-    if (!questionid) {
-        return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Please provide question ID" });
-    }
+async function deleteQuestion(req, res) {
+    const questionId = req.params.questionId;
 
     try {
         const query = "DELETE FROM questions WHERE questionid=?";
-        const result = await dbConnectionPromise.query(query, [questionid]);
-
-        if (result) {
+        const result = await dbConnectionPromise.query(query, [questionId]);
+        if (result.affectedRows > 0) {
             return res.status(StatusCodes.OK).json({ msg: "Question deleted successfully" });
         } else {
             return res.status(StatusCodes.NOT_FOUND).json({ msg: "Question not found" });
-        }
+        }        
     } catch (error) {
         console.error("Error deleting question:", error);
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: "Something went wrong" });
     }
 }
+
 
 async function allQuestions(req, res) {
     try {

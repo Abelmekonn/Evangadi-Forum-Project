@@ -1,76 +1,109 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import axios from '../../utils/axios';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
 const UpdateQuestion = () => {
-  const [questionid, setQuestionId] = useState('');
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [tag, setTag] = useState('');
-  const [message, setMessage] = useState('');
+    const { questionId } = useParams();
+    const { state } = useLocation();
+    const [questionDetail, setQuestionDetail] = useState(state.questionDetail || {});
+    const [error, setError] = useState(null);
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [tag, setTag] = useState('');
+    const [message, setMessage] = useState('');
+    const navigate = useNavigate(); // Initialize the navigate function
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(`/update-question/${questionid}`, {
-        title,
-        description,
-        tag,
-      });
-      setMessage(response.data.msg);
-      // Clear form after successful submission (optional)
-      setQuestionId('');
-      setTitle('');
-      setDescription('');
-      setTag('');
-    } catch (error) {
-      setMessage(error.response.data.msg || 'Something went wrong');
-    }
-  };
+    useEffect(() => {
+        // If questionDetail is not passed in state, fetch it from the API
+        if (!state.questionDetail) {
+            fetchQuestion();
+        } else {
+            // Set initial form values from questionDetail
+            setTitle(questionDetail.title);
+            setDescription(questionDetail.description);
+            setTag(questionDetail.tag); // Assuming tags are stored as an array
+        }
+    }, [state.questionDetail]);
 
-  return (
-    <div>
-      <h2>Update Question</h2>
-      <form onSubmit={handleSubmit}>
+    const fetchQuestion = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.get(`/questions/detail/${questionId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            if (Array.isArray(response.data) && response.data.length > 0) {
+                setQuestionDetail(response.data[0]); // Assuming you're expecting a single object
+                setTitle(response.data[0].title);
+                setDescription(response.data[0].description);
+                setTag(response.data[0].tag.join(', ')); // Convert array to comma-separated string
+            } else {
+                setError("Invalid response: Expected an array with at least one item");
+            }
+        } catch (error) {
+            setError("Failed to fetch question detail");
+            console.error("Error fetching question detail:", error);
+        }
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.post(`/questions/update-question/${questionId}`, {
+                title,
+                description,
+                tag: tag.split(',').map(item => item.trim()) // Convert comma-separated string to array
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            setMessage(response.data.msg);
+            navigate(`/question-detail/${questionId}`);
+        } catch (error) {
+            setMessage(error.response?.data?.msg || 'Something went wrong');
+        }
+    };
+
+    return (
         <div>
-          <label>Question ID:</label>
-          <input
-            type="text"
-            value={questionid}
-            onChange={(e) => setQuestionId(e.target.value)}
-            required
-          />
+            <h2>Update Question</h2>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label>Title:</label>
+                    <input
+                        type="text"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label>Description:</label>
+                    <textarea
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label>Tag:</label>
+                    <input
+                        type="text"
+                        value={tag}
+                        onChange={(e) => setTag(e.target.value)}
+                        required
+                    />
+                </div>
+                <button type="submit">Update Question</button>
+            </form>
+            {message && <p>{message}</p>}
         </div>
-        <div>
-          <label>Title:</label>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Description:</label>
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Tag:</label>
-          <input
-            type="text"
-            value={tag}
-            onChange={(e) => setTag(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Update Question</button>
-      </form>
-      {message && <p>{message}</p>}
-    </div>
-  );
+    );
 };
 
 export default UpdateQuestion;

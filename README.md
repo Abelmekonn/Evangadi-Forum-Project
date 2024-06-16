@@ -63,5 +63,5 @@ This project was developed independently by a student of the Evangadi Tech Full 
 
 For any questions, feedback, or support, please reach out:
 
-- **Email**: [Abelmekonn9@gmail.com]
+- **Email**: Abelmekonn9@gmail.com
 - **LinkedIn**: [Your LinkedIn Profile]([https://www.linkedin.com](https://www.linkedin.com/in/abel-mekonn-pydev/))

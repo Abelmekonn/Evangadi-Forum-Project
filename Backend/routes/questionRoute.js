@@ -4,7 +4,6 @@ const router = express.Router();
 const authMiddleware = require("../middleware/authMiddleware");
 const { createQuestion, allQuestions, deleteQuestion, updateQuestion,getQuestionDetail } = require("../controller/question");
 
-
 // use get for getting question detail
 router.get('/detail/:questionId', authMiddleware ,getQuestionDetail);
 

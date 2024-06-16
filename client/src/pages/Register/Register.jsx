@@ -1,11 +1,8 @@
 import { useRef, useState } from "react";
 import axios from "../../utils/axios";
-import { useNavigate } from "react-router-dom";
 import classes from "./Register.module.css"
 
 function Register({ toggleForm }) {
-    const navigate = useNavigate();
-
     const [errorMessage, setErrorMessage] = useState("");
 
     const username = useRef();
@@ -128,7 +125,7 @@ function Register({ toggleForm }) {
                 <br />
                 <p>I agree to the <span className={classes.red}>privacy policy</span> and <span className={classes.red}>terms of service</span>.</p>
                 <br />
-                <button className={classes.btn} type="submit">Register please</button>
+                <button className={classes.btn} type="submit">Register</button>
                 {errorMessage && <p className={classes.error_message}>{errorMessage}</p>}
             </form>
         </div>

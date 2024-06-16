@@ -1,24 +1,45 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import React, { useEffect, useState } from 'react';
+import axios from '../../utils/axios';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const DeleteQuestion = () => {
-    const [questionid, setQuestionId] = useState('');
+    const { questionId } = useParams();
     const [message, setMessage] = useState('');
-    const navigate = useNavigate(); // Get the navigate function from react-router-dom
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            setMessage('You must be logged in to delete a question');
+            navigate('/login');
+        }
+    }, [navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`/delete-question/${questionid}`);
-            setMessage(response.data.msg);
-            // Optionally, clear the questionid state after successful deletion
-            setQuestionId('');
+            const token = localStorage.getItem('token');
+             // Debug statement
+            if (!token) {
+                setMessage('Authentication token is missing.');
+                return;
+            }
 
-            // Navigate to home page after deletion
+            await axios.post(`/questions/delete-question/${questionId}`, {}, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            setMessage("deleted")
             navigate('/');
         } catch (error) {
-            setMessage(error.response.data.msg || 'Something went wrong');
+            console.error('Delete question error:', error);
+            if (error.response && error.response.status === 401) {
+                setMessage('Unauthorized: Please log in and try again.');
+            } else {
+                setMessage(error.response?.data?.msg || 'Something went wrong');
+            }
         }
     };
 
@@ -27,13 +48,7 @@ const DeleteQuestion = () => {
             <h2>Delete Question</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Question ID:</label>
-                    <input
-                        type="text"
-                        value={questionid}
-                        onChange={(e) => setQuestionId(e.target.value)}
-                        required
-                    />
+                    <label>Are you sure you want to delete this question?</label>
                 </div>
                 <button type="submit">Delete Question</button>
             </form>
