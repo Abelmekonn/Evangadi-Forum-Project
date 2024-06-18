@@ -1,32 +1,36 @@
-import { useRef, useState } from "react";
+import React, { useState } from "react";
 import axios from "../../utils/axios";
-import classes from "./Register.module.css";
 import { ClipLoader } from "react-spinners";
+import classes from "./Register.module.css";
 
-function Register({ toggleForm }) {
+const Register = ({ toggleForm }) => {
+    const [formData, setFormData] = useState({
+        username: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+    });
     const [errorMessage, setErrorMessage] = useState("");
     const [loading, setLoading] = useState(false);
-    const username = useRef();
-    const firstName = useRef();
-    const lastName = useRef();
-    const email = useRef();
-    const password = useRef();
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-    async function handleSubmit(e) {
+    const { username, firstName, lastName, email, password } = formData;
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const usernameValue = username.current.value;
-        const firstValue = firstName.current.value;
-        const lastValue = lastName.current.value;
-        const emailValue = email.current.value;
-        const passValue = password.current.value;
 
-        if (!usernameValue || !firstValue || !lastValue || !emailValue || !passValue) {
+        if (!username || !firstName || !lastName || !email || !password) {
             setErrorMessage("Please provide all fields");
             return;
         }
 
-        if (!passwordRegex.test(passValue)) {
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        if (!passwordRegex.test(password)) {
             setErrorMessage(
                 "Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character."
             );
@@ -36,11 +40,11 @@ function Register({ toggleForm }) {
         try {
             setLoading(true);
             await axios.post("/users/register", {
-                username: usernameValue,
-                firstname: firstValue,
-                lastname: lastValue,
-                email: emailValue,
-                password: passValue,
+                username,
+                firstname: firstName,
+                lastname: lastName,
+                email,
+                password,
             });
             console.log("Registration successful. Navigating to login page.");
             toggleForm();
@@ -52,12 +56,9 @@ function Register({ toggleForm }) {
                 setErrorMessage("Something went wrong. Please try again later.");
             }
         } finally {
-            // Simulate a slight delay for visual feedback
-            setTimeout(() => {
-                setLoading(false);
-            }, 1500); // Adjust the delay time as needed (1500ms = 1.5 seconds)
+            setLoading(false);
         }
-    }
+    };
 
     return (
         <div className={classes.register_container}>
@@ -75,8 +76,9 @@ function Register({ toggleForm }) {
                     <input
                         className={`${classes.input_alt} ${classes.input}`}
                         type="text"
-                        ref={username}
-                        id="username"
+                        name="username"
+                        value={username}
+                        onChange={handleChange}
                         placeholder="Username"
                     />
                     <span className={`${classes.inputBorder} ${classes.inputBorderAlt}`}></span>
@@ -87,8 +89,9 @@ function Register({ toggleForm }) {
                         <input
                             className={`${classes.input_alt} ${classes.input}`}
                             type="text"
-                            ref={firstName}
-                            id="firstName"
+                            name="firstName"
+                            value={firstName}
+                            onChange={handleChange}
                             placeholder="First Name"
                         />
                         <span className={`${classes.inputBorder} ${classes.inputBorderAlt}`}></span>
@@ -97,8 +100,9 @@ function Register({ toggleForm }) {
                         <input
                             className={`${classes.input_alt} ${classes.input}`}
                             type="text"
-                            ref={lastName}
-                            id="lastName"
+                            name="lastName"
+                            value={lastName}
+                            onChange={handleChange}
                             placeholder="Last Name"
                         />
                         <span className={`${classes.inputBorder} ${classes.inputBorderAlt}`}></span>
@@ -109,8 +113,9 @@ function Register({ toggleForm }) {
                     <input
                         className={`${classes.input_alt} ${classes.input}`}
                         type="email"
-                        ref={email}
-                        id="email"
+                        name="email"
+                        value={email}
+                        onChange={handleChange}
                         placeholder="Email"
                     />
                     <span className={`${classes.inputBorder} ${classes.inputBorderAlt}`}></span>
@@ -120,8 +125,9 @@ function Register({ toggleForm }) {
                     <input
                         className={`${classes.input_alt} ${classes.input}`}
                         type="password"
-                        ref={password}
-                        id="password"
+                        name="password"
+                        value={password}
+                        onChange={handleChange}
                         placeholder="Password"
                     />
                     <span className={`${classes.inputBorder} ${classes.inputBorderAlt}`}></span>
@@ -143,6 +149,6 @@ function Register({ toggleForm }) {
             </form>
         </div>
     );
-}
+};
 
 export default Register;
