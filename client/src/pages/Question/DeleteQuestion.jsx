@@ -25,7 +25,7 @@ const DeleteQuestion = () => {
                 setMessage('Authentication token is missing.');
                 return;
             }
-
+            
             await axios.delete(`/questions/delete-question/${questionId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -35,7 +35,7 @@ const DeleteQuestion = () => {
             setMessage('Question successfully deleted');
             navigate('/'); // Navigate to homepage or another appropriate route after deletion
         } catch (error) {
-            console.error('Delete question error:', error);
+            console.error('Delete question error:', error); 
             if (error.response && error.response.status === 401) {
                 setMessage('Unauthorized: Please log in and try again.');
             } else {
@@ -43,7 +43,6 @@ const DeleteQuestion = () => {
             }
         }
     };
-
 
     return (
         <LayOut>

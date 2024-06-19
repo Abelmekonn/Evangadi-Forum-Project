@@ -40,7 +40,7 @@ async function register(req, res) {
 
         // Generate JWT token
         const payload = { username };
-        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1d' });
 
         // Return success response with token
         return res.status(StatusCodes.CREATED).json({ token });
@@ -55,29 +55,40 @@ async function login(req, res) {
     const { email, password } = req.body;
 
     if (!email || !password) {
-        return res.status(StatusCodes.BAD_REQUEST).json({ msg: "please enter all info" }); // Corrected reference to StatusCodes
+        console.log("Missing email or password");
+        return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Please enter all info" });
     }
+
     try {
-        const [user] = await dbConnectionPromise.query("select username,userid,password from users where  email=? ", [email]);
-        if (user.length == 0) {
-            return res.status(StatusCodes.BAD_REQUEST).json({ msg: "invalid credential" }); // Corrected reference to StatusCodes
+        console.log("Received login request for email:", email);
+        
+        const [user] = await dbConnectionPromise.query("SELECT username, userid, password FROM users WHERE email = ?", [email]);
+
+        if (user.length === 0) {
+            console.log("User not found for email:", email);
+            return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Invalid credentials" });
         }
-        // compare password
+
+        console.log("User found:", user);
+
         const isMatch = await bcrypt.compare(password, user[0].password);
         if (!isMatch) {
-            return res.status(StatusCodes.BAD_REQUEST).json({ msg: 'Invalid Credentials' });
+            console.log("Password mismatch for user:", email);
+            return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Invalid credentials" });
         }
-        const username = user[0].username
-        const userid = user[0].userid
 
-        const token = jwt.sign({ username, userid }, process.env.JWT_SECRET, { expiresIn: "1d" })
+        const { username, userid } = user[0];
+        const token = jwt.sign({ username, userid }, process.env.JWT_SECRET, { expiresIn: "1d" });
 
-        return res.status(StatusCodes.OK).json({ token, username, msg: "successful login" });
+        console.log("Login successful for user:", email);
+
+        return res.status(StatusCodes.OK).json({ token, username, msg: "Successful login" });
     } catch (error) {
-        console.log(error.message);
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: "something is wrong" }); // Corrected reference to StatusCodes
+        console.error("Login error:", error.message);
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: "Something went wrong" });
     }
 }
+
 
 async function checker(req, res) {
     const username = req.user.username

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from "../../utils/axios";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import img from "../../assets/img/profile_icon.webp";
 import classes from "./all.module.css";
@@ -8,7 +7,6 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Loader from '../../Components/Loader/Loader';
 
 function All_question() {
-    const navigate = useNavigate();
     const [questions, setQuestions] = useState([]);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);

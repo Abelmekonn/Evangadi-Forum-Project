@@ -5,7 +5,7 @@ import classes from "./Login.module.css";
 import { ClipLoader } from "react-spinners";
 
 function Login({ toggleForm }) {
-    const [loading, setLoading] = useState(false); // State to manage loading
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const email = useRef();
     const password = useRef();
@@ -21,33 +21,29 @@ function Login({ toggleForm }) {
         }
 
         try {
-            // Start loading state
             setLoading(true);
+            const loginData = { email: emailValue, password: passwordValue };
 
-            // Make a login request using Axios
-            const response = await axios.post("/users/login", {
-                email: emailValue,
-                password: passwordValue,
-            });
+            console.log("Sending login request with data:", loginData);
 
-            // Assume the server returns a token upon successful login
+            const response = await axios.post("/users/login", loginData);
+
             const token = response.data.token;
-
-            // Save the token to local storage or session storage
             localStorage.setItem("token", token);
-
-            // Redirect to a protected route or dashboard
             navigate("/");
         } catch (error) {
-            // Handle login error
-            alert("Login failed. Please check your credentials.");
-            console.error("Login error:", error);
+            if (error.response) {
+                console.error("Server responded with an error:", error.response.data);
+                alert("Login failed: " + (error.response.data.msg || "Please check your credentials."));
+            } else if (error.request) {
+                console.error("No response received:", error.request);
+                alert("Login failed: No response from server.");
+            } else {
+                console.error("Error setting up request:", error.message);
+                alert("Login failed: An error occurred.");
+            }
         } finally {
-            // Simulate a slight delay for visual feedback
-            setTimeout(() => {
-                // Stop loading state
-                setLoading(false);
-            }, 1000); // Adjust the delay time as needed (1000ms = 1 second)
+            setLoading(false);
         }
     }
 
@@ -79,7 +75,6 @@ function Login({ toggleForm }) {
                     placeholder="Password"
                 />
                 <br />
-                {/* Conditional rendering of ClipLoader inside the button */}
                 <button className={classes.btn} type="submit" disabled={loading}>
                     {loading ? (
                         <ClipLoader color={"#fff"} loading={true} size={20} />
