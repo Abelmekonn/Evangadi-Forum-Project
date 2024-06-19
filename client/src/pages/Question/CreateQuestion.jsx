@@ -1,7 +1,6 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import axios from "../../utils/axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext } from 'react';
 import { Appstate } from '../../App';
 import LayOut from "../../Components/LayOut/LayOut";
 import classes from "./create.module.css";
@@ -43,7 +42,7 @@ function CreateQuestion() {
 
         try {
             setLoading(true); // Set loading state to true before making the API call
-            await axios.post("/questions/create-question", {
+            const response = await axios.post("/questions/create-question", {
                 questionid: questionid,
                 userid: userId,
                 title: titleValue,
@@ -55,9 +54,14 @@ function CreateQuestion() {
                 }
             });
             setSuccessMessage("Question submitted successfully!");
-            navigate("/")
+            navigate("/");
         } catch (error) {
-            console.log(error);
+            console.error("Error creating question:", error);
+            if (error.response) {
+                setErrorMessage(error.response.data.msg || "An error occurred");
+            } else {
+                setErrorMessage("An error occurred");
+            }
         } finally {
             // Simulate a slight delay for visual feedback
             setTimeout(() => {

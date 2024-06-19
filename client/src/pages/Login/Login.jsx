@@ -23,9 +23,7 @@ function Login({ toggleForm }) {
         try {
             setLoading(true);
             const loginData = { email: emailValue, password: passwordValue };
-
-            console.log("Sending login request with data:", loginData);
-
+            
             const response = await axios.post("/users/login", loginData);
 
             const token = response.data.token;

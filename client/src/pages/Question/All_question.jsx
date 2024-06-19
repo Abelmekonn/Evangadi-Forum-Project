@@ -23,18 +23,17 @@ function All_question() {
                 .then((res) => {
                     if (Array.isArray(res.data)) {
                         setQuestions(res.data);
-                        setIsLoading(false);
                     } else {
                         setError("Invalid response: Expected an array");
-                        setIsLoading(false);
                     }
                 })
                 .catch((err) => {
                     setError(err.message);
+                })
+                .finally(() => {
                     setIsLoading(false);
                 });
         } else {
-            // Handle case where token is missing
             setError("JWT token is missing");
             setIsLoading(false);
         }
@@ -47,17 +46,22 @@ function All_question() {
             ) : (
                 <>
                     {error && <div>Error: {error}</div>}
-                    <h3> Questions</h3>
+                    <h3>Questions</h3>
                     <hr />
                     {questions.map(question => (
-                        <div key={question.id} className={classes.question_container}>
+                        <div key={question.questionid} className={classes.question_container}>
                             <div className={classes.question}>
                                 <div className={classes.profile}>
-                                    <img src={img} alt="" />
+                                    <img src={img} alt="Profile" />
                                     <p>{question.username}</p>
                                 </div>
                                 <p>{question.title}</p>
-                                <p>Tag: {question.tag}</p>
+                                <div className={classes.tagBox}>
+                                    <p>Tags:</p>
+                                    {(Array.isArray(question.tag) ? question.tag : [question.tag]).map((tag, index) => (
+                                        <span key={index} className={classes.tag}>{tag}</span>
+                                    ))}
+                                </div>
                             </div>
                             <Link className={classes.link} to={`/question-detail/${question.questionid}`}>
                                 <ChevronRightIcon />
