@@ -47,3 +47,13 @@ h1 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+@media (max-width: 768px) {
+    .auth_container{
+        flex-direction: column;
+        width: 80%;
+    }
+    .auth_page_container,
+    .auth_form{
+        width: 100%;
+    }
+}

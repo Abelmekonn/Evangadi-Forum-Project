@@ -36,3 +36,17 @@
 .footer_container div ul li .link :hover{
     color: #fff;
 }
+@media (max-width: 768px) {
+    .footer_container {
+        flex-direction: column;
+        
+    }
+    .footer_container .socialmedia img , 
+    .footer_container .socialmedia ul{
+        width: 20%;
+        margin-bottom: 10px;
+    }
+    .footer_container div{
+        padding-left: 10px;
+    }
+}
