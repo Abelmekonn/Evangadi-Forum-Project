@@ -38,17 +38,17 @@
 
 @media (max-width: 768px) {
     .header_container {
-        flex-direction: column; /* Stack items vertically on smaller screens */
+        flex-direction: row; /* Stack items vertically on smaller screens */
         padding: 10px; /* Adjusted padding for smaller screens */
     }
 
     .logo {
-        margin-bottom: 10px; /* Add spacing below logo on smaller screens */
+        width: 50px; /* Add spacing below logo on smaller screens */
     }
 
     .navs {
-        flex-direction: column; /* Stack nav links vertically on smaller screens */
-        justify-content: center; /* Center align nav links vertically */
+        flex-direction: row; /* Stack nav links vertically on smaller screens */
+         /* Center align nav links vertically */
     }
 
     .navs .link {
