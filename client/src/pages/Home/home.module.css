@@ -1,5 +1,5 @@
 .home_container{
-    width: 65%;
+    width: 70%;
     margin: auto auto 37vh auto;
 }
 .home_upper{
@@ -27,4 +27,9 @@
     font-size: 14px;
     color: #ffff;
     text-decoration: none;
+}
+@media (max-width: 768px) {
+    .home_container{
+        width: 90%;
+        }
 }
