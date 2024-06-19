@@ -56,12 +56,6 @@ function All_question() {
                                     <p>{question.username}</p>
                                 </div>
                                 <p>{question.title}</p>
-                                <div className={classes.tagBox}>
-                                    <p>Tags:</p>
-                                    {(Array.isArray(question.tag) ? question.tag : [question.tag]).map((tag, index) => (
-                                        <span key={index} className={classes.tag}>{tag}</span>
-                                    ))}
-                                </div>
                             </div>
                             <Link className={classes.link} to={`/question-detail/${question.questionid}`}>
                                 <ChevronRightIcon />
