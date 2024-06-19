@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from '../../utils/axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import LayOut from "../../Components/LayOut/LayOut";
-import classes from "./create.module.css"
+import classes from "./create.module.css";
 
 const DeleteQuestion = () => {
     const { questionId } = useParams();
@@ -26,18 +26,26 @@ const DeleteQuestion = () => {
                 return;
             }
             
-            await axios.delete(`/questions/delete-question/${questionId}`, {
+            const response = await axios.delete(`/questions/delete-question/${questionId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
 
-            setMessage('Question successfully deleted');
-            navigate('/'); // Navigate to homepage or another appropriate route after deletion
+            if (response.status === 200) {
+                setMessage('Question successfully deleted');
+                setTimeout(() => {
+                    navigate('/'); // Navigate to homepage or another appropriate route after deletion
+                }, 2000);
+            } else {
+                navigate('/');
+            }
         } catch (error) {
             console.error('Delete question error:', error); 
             if (error.response && error.response.status === 401) {
                 setMessage('Unauthorized: Please log in and try again.');
+            } else if (error.response && error.response.status === 404) {
+                navigate('/');
             } else {
                 setMessage(error.response?.data?.msg || 'Something went wrong');
             }
