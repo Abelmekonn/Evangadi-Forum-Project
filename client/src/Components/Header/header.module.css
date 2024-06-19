@@ -43,7 +43,8 @@
     }
 
     .logo {
-        margin-bottom: 10px; /* Add spacing below logo on smaller screens */
+        margin-bottom: 10px;
+        display: none; /* Add spacing below logo on smaller screens */
     }
 
     .navs {
